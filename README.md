@@ -4,7 +4,7 @@
 Repositorio con los ejercicios de la asignatura “Análisis Bayesiano de
 Datos”
 
-# License
+# Licencia
 
 [Repository Ejercicios-ABD](https://github.com/DaniMori/Ejercicios-ABD)
 © 2025 by [Daniel Morillo](https://github.com/DaniMori), todos los
@@ -116,13 +116,13 @@ The file structure of this repository is as follows:
     |--- output (Processing outputs; files must be individually "checked-in"
     |           when necessary)
     |
-    |--- R            (R functions created for this project live here)
+    |--- R      (R functions created for this project live here)
     |
-    |--- renv         (System library necesssary for `renv` to work. DON'T TOUCH)
+    |--- renv   (System library necesssary for `renv` to work. DON'T TOUCH)
     |
-    |--- src          (Source scripts that implement the main processes)
+    |--- src    (Source scripts that implement the main processes)
     |
-    |--- www          (Project assets, e.g., images, bibliography files, etc.)
+    |--- www    (Project assets, e.g., images, bibliography files, etc.)
 
 Use the folders as indicated to store the different files and generate
 the outputs of the processes.
