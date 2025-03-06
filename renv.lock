@@ -312,13 +312,7 @@
       "Package": "pak",
       "Version": "0.8.0.1",
       "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "tools",
-        "utils"
-      ],
-      "Hash": "7a5f3ae05388bfd4adfeb5d7fad1b8de"
+      "Repository": "CRAN"
     },
     "processx": {
       "Package": "processx",
