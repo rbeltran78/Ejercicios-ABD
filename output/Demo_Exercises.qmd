@@ -1,0 +1,59 @@
+---
+title: "Ejercicios de Análisis Bayesiano de Datos"
+format:
+  html:
+    code-copy:       true
+    code-tools:      true
+    embed-resources: true
+    theme:           ../www/extra-styles.scss
+    toc:             true
+    toc-location:    left
+callout-appearance: minimal
+---
+
+# Introducción
+
+Este es un ejercicio dificilísimo de Análisis Bayesiano de Datos.
+
+```{r setup}
+#| message: false
+
+# Paquetes:
+library(tidyverse)
+```
+
+# Ejercicio 1
+
+## Distribución normal
+
+La distribución normal tiene esta forma:
+
+```{r normal-figura}
+tibble(
+  variable = seq(from = -3, to = 3, by = .1),
+  densidad = variable |> dnorm()
+) |>
+  ggplot(mapping = aes(x = variable, y = densidad)) +
+  geom_line()
+```
+
+### Pregunta 1
+
+-   ¿A qué se parece una distribución normal?
+
+::: {#respuesta-1 .callout-note}
+:::
+
+### Pregunta 2
+
+-   Simula 3 valores de una variable $x$ que se distribuye según la normal estandarizada.
+
+::: {#respuesta-2 .callout-note}
+:::
+
+### Pregunta 3
+
+-   ¿Cómo se formula la distribución de $x$?
+
+::: {#respuesta-3 .callout-note}
+:::
