@@ -105,12 +105,11 @@ The file structure of this repository is as follows:
 
     Ejercicios-ABD
     |
-    |--- output (Processing outputs; files must be individually "checked-in"
-    |           when necessary)
+    |--- notebooks (The exercise notebooks will be in this folder)
     |
-    |--- R      (R functions created for this project live here)
+    |--- R         (R functions created for this project live here)
     |
-    |--- renv   (System library necesssary for `renv` to work. DON'T TOUCH)
+    |--- renv      (System library necesssary for `renv` to work. DON'T TOUCH)
 
 Use the folders as indicated to store the different files and generate
 the outputs of the processes.
