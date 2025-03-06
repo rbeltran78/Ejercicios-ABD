@@ -42,14 +42,6 @@ Start by installing the following software components:
 
 <!-- -->
 
-- [Quarto publishing system](https://quarto.org/): An additional
-  component used by Rstudio to generate and publish literate computing
-  outputs. For strict reproducibility please use build 1.5.57; On
-  Windows, use [the 64-bit
-  installer](https://github.com/quarto-dev/quarto-cli/releases/download/v1.5.57/quarto-1.5.57-win.msi).
-
-<!-- -->
-
 - [Git client](https://git-scm.com/download): Install the Git client in
   order to be able to clone locally the project repository. On Windows,
   use [the 64-bit Windows
