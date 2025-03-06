@@ -19,7 +19,7 @@ Este es un ejercicio dificilísimo de Análisis Bayesiano de Datos.
 #| message: false
 
 # Paquetes:
-library(tidyverse)
+# library(tidyverse)
 ```
 
 # Ejercicio 1
