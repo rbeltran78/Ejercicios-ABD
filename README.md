@@ -6,7 +6,7 @@ Datos”
 
 # Licencia
 
-[Repository Ejercicios-ABD](https://github.com/DaniMori/Ejercicios-ABD)
+[Repository Ejercicios-ABD](https://github.com/DV-Morillo/Ejercicios-ABD)
 © 2025 by [Daniel Morillo](https://github.com/DaniMori), todos los
 derechos reservados.
 
@@ -57,7 +57,7 @@ instructions](https://book.cds101.com/using-rstudio-server-to-clone-a-github-rep
 specified. The URL that must be entered into the `Repository URL` text
 box is:
 
-    https://github.com/DaniMori/Ejercicios-ABD.git
+    https://github.com/DV-Morillo/Ejercicios-ABD.git
 
 **IMPORTANT:** It is totally unrecommended to clone a git repository
 inside a cloud storage folder (e.g., Dropbox, OneDrive). Please note
