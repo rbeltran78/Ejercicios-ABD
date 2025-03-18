@@ -1,0 +1,33 @@
+---
+title: "Tema 5: Ejercicios"
+format:
+  html:
+    code-copy:       true
+    code-tools:      true
+    embed-resources: true
+    theme:           ../www/extra-styles.scss
+    toc:             true
+    toc-location:    left
+callout-appearance: minimal
+---
+
+# Introducción
+
+<!-- Work in progress -->
+
+```{r setup}
+#| message: false
+
+# Paquetes:
+library(tidyverse)
+library(RColorBrewer)
+
+
+# Configuración de la salida gráfica:
+
+PALETA <- brewer.pal(8, "Set2") # Colores por defecto
+color_defecto  <- PALETA[1]
+options(ggplot2.discrete.colour = PALETA)
+
+theme_set(theme_bw()) # Tema "neutro" para la representación gráfica
+```
