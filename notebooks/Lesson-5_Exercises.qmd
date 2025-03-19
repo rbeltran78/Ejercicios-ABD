@@ -1,9 +1,10 @@
 ---
-title: "Tema 5: Ejercicios"
+title: "Tema 5: Ejercicio"
 format:
   html:
     code-copy:       true
     code-tools:      true
+    df-print:        paged
     embed-resources: true
     theme:           ../www/extra-styles.scss
     toc:             true
@@ -13,7 +14,11 @@ callout-appearance: minimal
 
 # Introducción
 
-<!-- Work in progress -->
+En este tema hemos estudiado el método de Monte Carlo.
+Ahora vamos a ponerlo en práctica, comparando sus resultados con lo que ya conocemos de temas anteriores.
+En esta ocasión, la entrega consiste en un único ejercicio.
+
+Al igual que en el Tema 3, configuramos primero el entorno.
 
 ```{r setup}
 #| message: false
@@ -30,4 +35,143 @@ color_defecto  <- PALETA[1]
 options(ggplot2.discrete.colour = PALETA)
 
 theme_set(theme_bw()) # Tema "neutro" para la representación gráfica
+
+# Redondea los números reales "inline":
+options(digits = 3L)                
+options(knitr.digits.signif = FALSE)
 ```
+
+# Ejercicio
+
+## Ajuste de modelos
+
+En este ejercicio vamos a utilizar nuevamente el modelo normal-normal del [Ejercicio 4 del Tema 3](https://github.com/DV-Morillo/Ejercicios-ABD/blob/main/notebooks/Lesson-3_Exercises.qmd#L382).
+
+Aquí tienes nuevamente los datos:
+
+```{r normal-normal-muestras}
+# Tiempo en s para leer un texto estándar en una prueba de lectura de las 2
+#   clases de 1º de ESO en un colegio:
+clase_1 <- tibble(
+  id     = 1:27,
+  tiempo = c(
+    242, 249, 278, 273, 227, 257, 276, 236, 214, 141, 200, 201, 
+    228, 271, 160, 275, 156, 246, 293, 306, 263, 247, 224, 160, 277, 
+    168, 250
+  )
+)
+
+clase_2 <- tibble(
+  id     = 1:24,
+  tiempo = c(
+    195, 176, 237, 258, 226, 254, 292, 212, 215, 298, 235, 244, 
+    144, 227, 166, 194, 261, 187, 224, 233, 180, 167, 193, 282
+  )
+)
+```
+
+Los datos de la distribución previa eran los datos de la población.
+Recuerda:
+
+```{r normal-normal-previa-params}
+MU_PREVIA     <- 247
+SIGMA2_PREVIA <-  34^2
+```
+
+Aplicando la propiedad de conjugación, recuerda que podemos obtener la expresión analítica de la distribución posterior de la media:
+
+$p(\mu | y) = N(\mu_{post}, \sigma^2_{post})$,
+
+siendo
+
+$$
+\mu\_{post} = \frac{\sigma^2_y \mu_{pre} + n \sigma^2_{pre} \bar{y}}
+                   {\sigma^2_y + n \sigma^2_{pre}}
+$$
+
+y
+
+$$
+\sigma^2\_{post} = \frac{\sigma^2_y \sigma^2_{pre}}
+                   {\sigma^2_y + n \sigma^2_{pre}}
+$$
+
+### Pregunta 1
+
+-   Utilizando la expresión analítica del modelo, obtén la expresión analítica de la distribución posterior de la media para cada una de las dos clases, con 2 decimales.
+
+::: {#respuesta-1 .callout-note}
+:::
+
+### Pregunta 2
+
+Para cada familia de distribuciones de probabilidad existe la función `r*()` en R que permite simular valores de esa distribución.
+Por ejemplo, en el caso de la normal, `rnorm(10, mean = 1, sd = 0)` extrae 10 muestras "independientes e igualmente distribuidas" de una distribución normal estándar.
+
+-   Para cada una de las dos clases, extrae 500 muestras de la distribución posterior.
+
+*(Recomendación: Inicializa la "semilla aleatoria" para evitar tener valores diferentes en cada ejecución)*
+
+```{r inicializa-semilla}
+set.seed(20250318)
+```
+
+::: {#respuesta-2 .callout-note}
+:::
+
+### Pregunta 3
+
+-   Con las distribuciones simuladas de la pregunta anterior, estima la media y la varianza de cada distribución. Compara los resultados con los obtenidos en la Pregunta 1.
+
+::: {#respuesta-3 .callout-note}
+:::
+
+### Pregunta 4
+
+-   Calcula el error estándar de Monte Carlo de las medias estimadas por el método de Monte Carlo (Hoff, 2009, p. 56), y su intervalo al 95% de confianza (p. 57). Asume que las varianzas verdaderas son desconocidas (i.e., utiliza las varianzas obtenidas por el método de Monte Carlo). ¿Cuál es la amplitud de los intervalos? Comprueba si los valores reales (obtenidos analíticamente) están comprendidos en los intervalos
+
+::: {#respuesta-4 .callout-note}
+:::
+
+### Pregunta 5
+
+-   En base a las varianzas obtenidas por el método de Monte Carlo, determina el tamaño muestral de la distribución posterior necesario para alcanzar una precisión de 2 decimales en la estimación de la media de las distribuciones posteriores (Hoff, 2009, p. 56; vas a tener que "despejar" el tamaño de la muestra simulada). Utiliza el valor mayor de ambas distribuciones para volver a calcular las medias, y comprueba si se alcanza la precisión esperada.
+
+::: {#respuesta-5 .callout-note}
+:::
+
+### Pregunta 6
+
+-   Utilizando las distribuciones de alta precisión obtenidas en la Pregunta 5, calcula:
+
+    -   Los intervalos de credibilidad del 99% de las distribuciones posteriores.
+
+    -   Los cuartiles de las distribuciones posteriores.
+
+    -   La probabilidad de cada clase de tener una media menor a la de la población.
+
+Obtén los resultados analíticos con las funciones `qnorm()` y `pnorm()`, y compara ambos.
+
+::: {#respuesta-6 .callout-note}
+:::
+
+### Pregunta 7
+
+-   ¿Qué opinas del método de Monte Carlo? ¿Te resulta fácil o difícil de aplicar? ¿Qué consideras que aporta respecto de obtener los parámetros de los modelos aplicando las fórmulas analíticas?
+
+::: {#respuesta-7 .callout-note}
+:::
+
+### Pregunta 8
+
+-   Calcula la probabilidad de que la media de la segunda clase sea superior a la media de la primera clase usando el método de Monte Carlo. ¿Cómo lo harías usando la fórmula analítica? ¿Es más fácil o más difícil?
+
+::: {#respuesta-8 .callout-note}
+:::
+
+### Pregunta 9
+
+-   Las muestras obtenidas para distribución posterior de la media de cada una de las dos clases son independientes. Por lo tanto, debería dar igual en qué orden se hayan muestreado. Utilizando `sample(_vector_)` podemos obtener los valores aleatorizado del vector en un objeto `_vector_`. Comprueba si se cumple que podemos aleatorizar las muestras de una (o ambas) distribuciones posteriores, y que la probabilidad de que las dos clases sean diferentes aún así no cambie.
+
+::: {#respuesta-9 .callout-note}
+:::
