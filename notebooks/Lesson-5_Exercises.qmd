@@ -9,6 +9,8 @@ format:
     theme:           ../www/extra-styles.scss
     toc:             true
     toc-location:    left
+bibliography:        ../www/abd.bib
+csl:                 ../www/apa-old-doi-prefix.csl
 callout-appearance: minimal
 ---
 

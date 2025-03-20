@@ -110,6 +110,8 @@ The file structure of this repository is as follows:
     |--- R         (R functions created for this project live here)
     |
     |--- renv      (System library necesssary for `renv` to work. DON'T TOUCH)
+    |
+    |--- www          (Project assets, e.g., images, bibliography files, etc.)
 
 Use the folders as indicated to store the different files and generate
 the outputs of the processes.
