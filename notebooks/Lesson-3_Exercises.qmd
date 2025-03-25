@@ -209,8 +209,6 @@ los datos.
 ::: {#respuesta-4 .callout-note}
 ```{r - cumsum}
 
-?cumsum
-
 normal = normal |> mutate(
   cdf = cumsum(densidad * PREC) # Multiplicar por PREC para aproximar el área acumulada
 )
@@ -663,16 +661,14 @@ $$ \theta \sim \text{Beta}(18, 6) $$
 -   Obtén la distribución posterior analítica después de esta segunda muestra, represéntala junto con las dos distribuciones anteriores, y obtén los estimadores posteriores esperado y modal.
 
 ::: {#respuesta-19 .callout-note}
-```{r calculo nueva muestra}
-
-
-############### Distribucion previa ####################
+```{r segunda}
+#Prior
 
 PREC     <- 1e-3 
 DENS_INF <- 0    
 DENS_SUP <- 1    
 
-# Alpha = 18 y Beta = 6 #
+#Alpha = 18 - Beta = 6 
   
 Beta_prior = tibble(
   theta = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
@@ -682,7 +678,7 @@ Beta_prior = tibble(
 ggplot(Beta_prior, aes(x = theta, y = dens)) +
   geom_line()
 
-########### Distribucion posterior ####################
+#Distribucion post 
 
 y = aceptacion_muestra_2 |>
   filter(resp_descarga_app == "Si") |>
@@ -696,19 +692,17 @@ Beta_post = tibble(
 )
 
 ggplot() +
-  geom_line(data = Beta, aes(x = theta, y = dens), color = "green", linetype = "solid") +
   geom_line(data = Beta_prior, aes(x = theta, y = dens), color = "blue", linetype = "solid") +
   geom_line(data = Beta_post, aes(x = theta, y = densidad_posterior), color = "red", linetype = "solid")
 
 
-### Media ####
+#Media
 86/(86+54)
 
-### Moda ####
+#Moda 
 (86)/(86+54-2)
 
 ```
-
 :::
 
 ## Ajuste con las muestras colapsadas
