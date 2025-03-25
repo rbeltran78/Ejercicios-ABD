@@ -94,7 +94,7 @@ Al haber valores próximos a 0, tampoco es necesario establecer el límite infer
 Haciendo uso de los valores generados de una distribución, podemos operar con ellos para obtener los resultados de "integrar" esa función, pero haciéndolo de forma numérica.
 
 Al obtener "valores equiespaciados" de la distribución, lo que estamos obteniendo es una "rejilla" de valores.
-La integración será una suma de "rectángulos", de altura igual a la densidad en ese punto, con base centrada en ese punto y extenciéndose `PREC/2` hacia cada lado (y por tanto de anchura `PREC`).
+La integración será una suma de "rectángulos", de altura igual a la densidad en ese punto, con base centrada en ese punto y extendiéndose `PREC/2` hacia cada lado (y por tanto de anchura `PREC`).
 
 Utilizando esta "integral numérica", podemos obtener ciertos valores de la distribución.
 Por ejemplo, la integral en todo el dominio de la variable debería tener un valor de 1.
@@ -163,6 +163,15 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   ¿Cuál es el valor máximo de la función de densidad?
 
 ::: {#respuesta-1 .callout-note}
+```{r valor max f(x) de densidad}
+
+normal |> summarize(max_densidad = max(densidad))
+uniforme |> summarize(max_densidad = max(densidad))
+
+```
+Los valores máximos de la función de densidad para una normal y una uniforme son
+0.398 y 1 respectivamente. 
+
 :::
 
 ### Pregunta 2
@@ -170,6 +179,12 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   ¿Para qué valor de la variable aleatoria se da? ¿Cómo llamarías a ese valor?
 
 ::: {#respuesta-2 .callout-note}
+```{r valor variable aleatoria}
+```
+Estos valores corresponden a la variable 0 y la variable 1, para la distribucion
+normal y uniforme respectivamente. Son los valores máximos de las distribuciones.
+El valor máximo de la distribución normal sería la media o la moda, y el de la distribución
+uniforme sería valor máximo uniforme.
 :::
 
 ### Pregunta 3
@@ -177,6 +192,12 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   El valor máximo, ¿puede ser mayor que 1? Justifica tu respuesta.
 
 ::: {#respuesta-3 .callout-note}
+```{r el valor máximo}
+
+```
+Los valores máximos pueden ser superiores a 1, lo importante es que el área 
+bajo la curva sea igual a 1. Las densidades indican qué tan concentrados están
+los datos.
 :::
 
 ### Pregunta 4
@@ -186,6 +207,20 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 *(Ejecuta `?cumsum` para consultar la ayuda de esa función).*
 
 ::: {#respuesta-4 .callout-note}
+```{r - cumsum}
+
+?cumsum
+
+normal = normal |> mutate(
+  cdf = cumsum(densidad * PREC) # Multiplicar por PREC para aproximar el área acumulada
+)
+
+normal |> ggplot(mapping = aes(x = variable, y = cdf)) +
+  geom_line()
+
+
+```
+
 :::
 
 ### Pregunta 5
@@ -193,6 +228,10 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   Calcula el valor esperado de la distribución normal.
 
 ::: {#respuesta-5 .callout-note}
+```{r valor esperado}
+normal |> summarize(mean = mean(variable))
+```
+Ese valor indica que esta muy cercano a 0.
 :::
 
 # Ejercicio 2
@@ -206,6 +245,24 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 *(Si no sabes qué limites utilizar, consulta la ayuda de `dbeta()`).*
 
 ::: {#respuesta-6 .callout-note}
+```{r representar-Beta}
+
+
+PREC     <- 1e-3 
+DENS_INF <- 0    
+DENS_SUP <- 1    
+
+Beta = tibble( # Esta función crea un "data.frame" o tabla de datos
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 1, 1)
+)
+
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+```
+
 :::
 
 ### Pregunta 7
@@ -213,6 +270,13 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   ¿Qué forma tiene?
 
 ::: {#respuesta-7 .callout-note}
+
+```{r forma}
+
+
+```
+Tiene forma de linea paralela al eje x. Como si fuese una distribucion
+uniforme
 :::
 
 ## Parámetros de la distribución Beta
@@ -222,6 +286,45 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   Prueba con diferentes valores de $\alpha$ y $\beta$.
 
 ::: {#respuesta-8 .callout-note}
+```{r diferentes valores}
+
+PREC     <- 1e-3 
+DENS_INF <- 0    
+DENS_SUP <- 1    
+
+# Alpha = 0.50 y Beta = 0.50 #
+  
+Beta = tibble( # Esta función crea un "data.frame" o tabla de datos
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 0.50, 0.50)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+
+#Alpha = 4 y Beta = 4 #
+  
+Beta = tibble( # Esta función crea un "data.frame" o tabla de datos
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 4, 4)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+# Alpha = 8 y Beta = 2 #
+  
+Beta = tibble( # Esta función crea un "data.frame" o tabla de datos
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 8, 2)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+```
+
 :::
 
 ### Pregunta 9
@@ -229,6 +332,10 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   ¿Qué ocurre a medida que van creciendo?
 
 ::: {#respuesta-9 .callout-note}
+```{r alfa y beta crecen}
+
+```
+La curva de a poco va tomando una forma de distribucion normal.
 :::
 
 ### Pregunta 10
@@ -236,6 +343,46 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   ¿Qué ocurre cuando son iguales? ¿Y cuándo son distintos?
 
 ::: {#respuesta-10 .callout-note}
+```{r iguales y distintos}
+
+################################# Iguales #####################################
+#Alpha = 8 y Beta = 8
+  
+Beta = tibble( # Esta función crea un "data.frame" o tabla de datos
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 8, 8)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+############################### Distintos #####################################
+
+#Alpha = 7 y Beta = 2 ## simetria negativa
+  
+Beta = tibble( # Esta función crea un "data.frame" o tabla de datos
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 7, 2)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+
+#Alpha = 7 y Beta = 2 ## simetria positiva
+  
+Beta = tibble( # Esta función crea un "data.frame" o tabla de datos
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 2, 7)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+```
+Si los valores aumentan y son iguales, adopta la forma de una distribucion normal.
+Si los valores de los parametros son distintos, la distribucion deja de ser simetrica
+y puede volverse simetrica negativa o positiva.
 :::
 
 ### Pregunta 11
@@ -243,6 +390,35 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   ¿Qué ocurre si tienen valores ligeramente superiores a 1?
 
 ::: {#respuesta-11 .callout-note}
+```{r ligeramente superior a 1}
+PREC     <- 1e-3 
+DENS_INF <- 0    
+DENS_SUP <- 1    
+
+# Alpha = 1.01 y Beta = 1.01 #
+  
+Beta = tibble(
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 1.01, 1.01)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+# Alpha = 1.3 y Beta = 1.3 #
+  
+Beta = tibble(
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 1.3, 1.3)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+
+```
+La distribucion es similar a una uniforme, pero con valores ligeramente
+superiores a 1 la curva va tomando una forma de parabola.
 :::
 
 ### Pregunta 12
@@ -250,6 +426,32 @@ Calcula o comprueba las siguientes respuestas usando comandos de R:
 -   ¿Qué ocurre si tienen valores por debajo de 1?
 
 ::: {#respuesta-12 .callout-note}
+```{r valores debajo de 1}
+
+# Alpha = 0.9 y Beta = 0.9 #
+  
+Beta = tibble(
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 0.9, 0.9)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+# Alpha = 0.7 y Beta = 0.4 #
+  
+Beta = tibble(
+  x = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  y = dbeta(x, 0.75, 0.1)
+)
+
+ggplot(Beta, aes(x = x, y = y)) +
+  geom_line()
+
+```
+Si los parametros son menores a 1 e iguales, toma la forma de una parabola.
+Sin embargo, si los valores de los parametros son distintos, la curva va tomando
+una forma de cuadrado similar a una distribucion uniforme.
 :::
 
 # Ejercicio 3
@@ -268,6 +470,14 @@ El jefe del departamento de analítica te asigna al proyecto y te pide que ajust
 -   ¿Cómo se representa la "tasa de aceptación" en el modelo?
 
 ::: {#respuesta-13 .callout-note}
+```{r tasa de aceptacion en el modelo}
+
+```
+y = "tasa de aceptacion"
+n = "tamano de la muestra"
+
+$$(y|\theta) \sim \text{Binomial}(n, \theta)$$
+
 :::
 
 ### Pregunta 14
@@ -277,6 +487,27 @@ El jefe del departamento de analítica te asigna al proyecto y te pide que ajust
 *(Ajusta los ejes correctamente, si hace falta, como en la distribución uniforme).*
 
 ::: {#respuesta-14 .callout-note}
+```{r distribucion previa}
+
+PREC     <- 1e-3 
+DENS_INF <- 0    
+DENS_SUP <- 1    
+
+# Alpha = 1 y Beta = 1 #
+  
+Beta = tibble(
+  variable = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  dens = dbeta(variable, 1, 1)
+)
+
+ggplot(Beta, aes(x = variable, y = dens)) +
+  geom_line()
+
+
+```
+Utilizaria como prior beta para optar por un modelo beta-binomial dado que la variable 
+aleatoria se comporta de manera binomial (si o no). Ademas que ambas que ambas
+distribuciones se pueden conjugar facilitando los calculos.
 :::
 
 ### Pregunta 15
@@ -284,6 +515,13 @@ El jefe del departamento de analítica te asigna al proyecto y te pide que ajust
 -   Supón que $y$ es el número de usuarios/as que han respondido que "Sí" descargarían la app. Formula la verosimilitud del modelo.
 
 ::: {#respuesta-15 .callout-note}
+
+$$
+
+f(\theta|y) \propto f(\theta)  f(y|\theta)
+
+$$
+
 :::
 
 ## Ajuste del modelo
@@ -305,6 +543,47 @@ aceptacion_muestra <- tibble(
 -   Obtén, en base a estos datos, la distribución posterior de la tasa de aceptación (en forma analítica), y represéntala junto a la distribución previa.
 
 ::: {#respuesta-16 .callout-note}
+```{r distribucion posterior y distribucion previa}
+
+############### Distribucion previa ####################
+
+PREC     <- 1e-3 
+DENS_INF <- 0    
+DENS_SUP <- 1    
+
+# Alpha = 1 y Beta = 1 #
+  
+Beta = tibble(
+  theta = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  dens = dbeta(theta, 1, 1)
+)
+
+ggplot(Beta, aes(x = theta, y = dens)) +
+  geom_line()
+
+########### Distribucion posterior ####################
+
+aceptacion_muestra
+
+y = aceptacion_muestra |>
+  filter(resp_descarga_app == "Si") |>
+  nrow() #Num total de "Si"
+
+n = nrow(aceptacion_muestra) #La muestra
+
+Betapost = tibble(
+  theta = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  densidad_posterior = dbeta(theta, 1 + y, 1 + n - y)
+)
+
+ggplot() +
+  geom_line(data = Beta, aes(x = theta, y = dens), color = "blue", linetype = "solid") +
+  geom_line(data = Betapost, aes(x = theta, y = densidad_posterior), color = "red", linetype = "solid")
+
+
+
+```
+
 :::
 
 ### Pregunta 17
@@ -314,6 +593,31 @@ aceptacion_muestra <- tibble(
 *(Nota: Ten en cuenta la "precisión" al calcular el "peso" de cada muestra.)*
 
 ::: {#respuesta-17 .callout-note}
+
+Distribucion posterior
+$$ (\theta | y) \sim Beta(\alpha+y, \beta+n-y) $$
+$$ Beta(1 + 17, 1 + 22 - 17) = Beta(18, 6) $$
+
+Moda de distribucion Beta
+$$ \frac{\alpha + y - 1}{\alpha + \beta + n -2} $$
+
+Media de distribucion Beta
+$$ E[\theta|y] = \frac{\alpha }{\alpha+\beta }$$
+
+
+```{r valor esperado y la moda de la distrib pob}
+
+
+#Media
+18/(18+6)
+
+#Moda
+(18-1)/(18+6-2)
+
+```
+La moda puede interpretarse como el caso más probable según la distribucion posterior. En cambio la media indica el valor esperado al combinar la prior y los datos, el valor actualizado dentro del
+sistema de creencias. 
+
 :::
 
 ## Ajuste con una nueva muestra
@@ -344,6 +648,14 @@ aceptacion_muestra_2 <- tibble(
 -   ¿Qué distribución previa utilizarías en esta ocasión? Formúlala.
 
 ::: {#respuesta-18 .callout-note}
+Utilizaria el mismo modelo beta-binomial pero una distribucion informada. Ya que
+me entregan una nueva muestra y ya tengo informacion de la distribucion anterior.
+A continuacion se define la prior.
+```{r distribucion previa}
+```
+
+$$ \theta \sim \text{Beta}(18, 6) $$
+
 :::
 
 ### Pregunta 19
@@ -351,6 +663,52 @@ aceptacion_muestra_2 <- tibble(
 -   Obtén la distribución posterior analítica después de esta segunda muestra, represéntala junto con las dos distribuciones anteriores, y obtén los estimadores posteriores esperado y modal.
 
 ::: {#respuesta-19 .callout-note}
+```{r calculo nueva muestra}
+
+
+############### Distribucion previa ####################
+
+PREC     <- 1e-3 
+DENS_INF <- 0    
+DENS_SUP <- 1    
+
+# Alpha = 18 y Beta = 6 #
+  
+Beta_prior = tibble(
+  theta = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  dens = dbeta(theta, 18, 6)
+)
+
+ggplot(Beta_prior, aes(x = theta, y = dens)) +
+  geom_line()
+
+########### Distribucion posterior ####################
+
+y = aceptacion_muestra_2 |>
+  filter(resp_descarga_app == "Si") |>
+  nrow() #Num total de "Si"
+
+n = nrow(aceptacion_muestra_2) #La muestra
+
+Beta_post = tibble(
+  theta = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  densidad_posterior = dbeta(theta, 18 + y, 6 + n - y)
+)
+
+ggplot() +
+  geom_line(data = Beta, aes(x = theta, y = dens), color = "green", linetype = "solid") +
+  geom_line(data = Beta_prior, aes(x = theta, y = dens), color = "blue", linetype = "solid") +
+  geom_line(data = Beta_post, aes(x = theta, y = densidad_posterior), color = "red", linetype = "solid")
+
+
+### Media ####
+86/(86+54)
+
+### Moda ####
+(86)/(86+54-2)
+
+```
+
 :::
 
 ## Ajuste con las muestras colapsadas
@@ -370,6 +728,54 @@ aceptacion_muestra_total <- bind_rows(
 -   Obtén la distribución posterior analítica después de esta segunda muestra, represéntala junto con las distribuciones anteriores, y obtén los estimadores posteriores esperado y modal.
 
 ::: {#respuesta-20 .callout-note}
+
+Se opta por utilizar un modelo beta-binomial con una distribucion informativa 
+dado que ya tenemos una muestra anterior que nos sera de utilidad.
+
+```{r muestra total}
+
+############### Distribucion previa ####################
+
+PREC     <- 1e-3 
+DENS_INF <- 0    
+DENS_SUP <- 1    
+
+# Alpha = 86 y Beta = 54 #
+  
+Beta_newprior = tibble(
+  theta = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  dens = dbeta(theta, 86, 54)
+)
+
+ggplot(Beta_newprior, aes(x = theta, y = dens)) +
+  geom_line()
+
+########### Distribucion posterior ####################
+
+y = aceptacion_muestra_total |>
+  filter(resp_descarga_app == "Si") |>
+  nrow() #Num total de "Si"
+
+n = nrow(aceptacion_muestra_total) #La muestra
+
+Beta_newpost = tibble(
+  theta = seq(from = DENS_INF, to = DENS_SUP, by = PREC),
+  densidad_posterior = dbeta(theta, 86 + y, 54 + n - y)
+)
+
+ggplot() +
+  geom_line(data = Beta_newprior, aes(x = theta, y = dens), color = "blue", linetype = "solid") +
+  geom_line(data = Beta_newpost, aes(x = theta, y = densidad_posterior), color = "red", linetype = "solid")
+
+
+### Media ####
+168/(168+107)
+
+### Moda ####
+(168)/(168+107-2)
+
+```
+
 :::
 
 ### Pregunta 21
@@ -377,6 +783,19 @@ aceptacion_muestra_total <- bind_rows(
 -   ¿Qué concluyes de la respuesta anterior? ¿En qué se diferencia este enfoque del análisis de datos clásico o frecuentista?
 
 ::: {#respuesta-21 .callout-note}
+```{r diferencia entre bayesiano y frecuentista}
+
+```
+A partir de estos múltiples ejercicios puedo concluir, primero, que a medida
+que incorporamos mayor información, tenemos un entendimiento mejor de como se va
+distribuyendo la variable aleatoria. En este caso, cada vez se está centrando más
+y se va volviendo similar a una curva normal. Quizás con mayor cantidad de datos
+la distribución se va modelando hasta acercarse a una.
+
+Todo esto se ha diferenciado en que cada vez más vamos adquiriendo nueva información
+sin desechar la muestra anterior. De esta manera podemos después hacer estimaciones
+mediante intervalos de credibilidad o con la distribucion completa.
+
 :::
 
 # Ejercicio 4
@@ -417,6 +836,39 @@ clase_2 <- tibble(
 -   Determina la verosimilitud y las distribuciones previa y posterior de la media, asumiendo que la varianza de la verosimilitud es la varianza de los datos. Justifica cómo has obtenido los parámetros de la distribución posterior (usa 2 decimales de precisión).
 
 ::: {#respuesta-22 .callout-note}
+
+Distribucion prior
+
+$$N(247, 1156)$$
+
+```{r Modelo normal-normal}
+#Union de bases de datos y calculos de estadisticos de la muestra nueva para###
+#la distribucion posterior#
+
+tiempos = bind_rows(clase_1, clase_2)
+media_muestral = mean(tiempos$tiempo)
+varianza_muestral = var(tiempos$tiempo)
+n_total = nrow(tiempos)
+
+mu_0 = 247
+sigma_0 = 1156
+
+#Calculo de los parametros de la distribucion posterior ####
+
+# Cálculo de la media posterior
+media_post <- (mu_0 / sigma_0 + n_total * media_muestral / varianza_muestral) /
+              (1 / sigma_0 + n_total / varianza_muestral)
+
+# Cálculo de la varianza posterior
+varianza_post <- 1 / (1 / sigma_0 + n_total / varianza_muestral)
+
+media_post
+varianza_post
+
+
+```
+
+
 :::
 
 ## Estimación
@@ -426,4 +878,28 @@ clase_2 <- tibble(
 -   Representa las distribuciones previa y posterior de la media; considera un eje que cubra 4 desviaciones típicas a cada lado de la media de la distribución previa. Obten el estimador esperado y modal a partir de esta distribución y compáralos con la solución analítica de la pregunta anterior.
 
 ::: {#respuesta-23 .callout-note}
+```{r representacion de las distribuciones previas y posterior}
+
+x <- seq(mu_0 - 4*sqrt(sigma_0), mu_0 + 4*sqrt(sigma_0), length.out = 500)
+df <- data.frame(
+  x = x,
+  Previa = dnorm(x, mu_0, sqrt(sigma_0)),
+  Posterior = dnorm(x, media_post, sqrt(varianza_post))
+)
+
+ggplot(df, aes(x)) +
+  geom_line(aes(y = Previa, color = "Previa"), linewidth = 1) +
+  geom_line(aes(y = Posterior, color = "Posterior"), linewidth = 1)
+
+
+##### Moda = Media = Mediana - Prior vs Posterior ###
+
+#Prior
+cat("Estimador esperado (media prior):", mu_0, "\n")
+cat("Estimador modal (moda prior):", mu_0, "\n")  
+
+#Posterior
+cat("Estimador esperado (media posterior):", media_post, "\n")  
+cat("Estimador modal (moda posterior):", media_post, "\n")    
+```
 :::
