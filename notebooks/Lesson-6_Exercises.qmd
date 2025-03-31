@@ -29,9 +29,8 @@ También hemos visto:
 En estos ejercicios, vamos a poner en práctica estos conceptos con algunos modelos ya conocidos y estudiados.
 En este caso, vamos a utilizar los modelos beta-binomial y gamma-Poisson ya vistos en los temas anteriores.
 
-Fíjate que @ross2022 asume una distribución discreta (y no uniforme) para el parámetro de probabilidad **en los ejemplos 7.1 a 7.3**.
-Es decir, **no se trata de un modelo beta-binomial**.
-(En el ejemplo 7.4 usa una distribución discreta uniforme, luego tampoco exactamente un modelo beta-binomial).
+Fíjate que @ross2022 asume distribuciones discreta (y no siempre uniformes) para el parámetro de probabilidad **en los ejemplos 7.1 a 7.4**.
+Es decir, aunque la distribución de la variable observada sea binomial, **no se trata de modelos beta-binomiales**.
 
 ```{r setup}
 #| message: false
