@@ -19,7 +19,7 @@ Este es un ejercicio dificilísimo de Análisis Bayesiano de Datos.
 #| message: false
 
 # Paquetes:
-library(tidyverse)
+# library(tidyverse)
 ```
 
 # Ejercicio 1
@@ -42,7 +42,6 @@ tibble(
 -   ¿A qué se parece una distribución normal?
 
 ::: {#respuesta-1 .callout-note}
-Se parece a una campana.
 :::
 
 ### Pregunta 2
@@ -50,11 +49,6 @@ Se parece a una campana.
 -   Simula 3 valores de una variable $x$ que se distribuye según la normal estandarizada.
 
 ::: {#respuesta-2 .callout-note}
-```{r simula-normal}
-valores <- rnorm(3)
-```
-
-Aquí están los valores.
 :::
 
 ### Pregunta 3
@@ -62,9 +56,4 @@ Aquí están los valores.
 -   ¿Cómo se formula la distribución de $x$?
 
 ::: {#respuesta-3 .callout-note}
-$x$ se distribuye según:
-
-$$
-x \sim N(0,1)
-$$
 :::
