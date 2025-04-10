@@ -411,3 +411,5 @@ Fíjate en la sección [`generated quantities`](https://mc-stan.org/docs/referen
 
 ::: {#respuesta-21 .callout-note}
 :::
+
+# Referencias
