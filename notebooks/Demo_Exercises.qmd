@@ -42,7 +42,7 @@ tibble(
 -   ¿A qué se parece una distribución normal?
 
 ::: {#respuesta-1 .callout-note}
-Se parece a una campana más o menos estrecha en función de la desviación típica.
+Se parece a una campana.
 :::
 
 ### Pregunta 2
@@ -51,7 +51,7 @@ Se parece a una campana más o menos estrecha en función de la desviación típ
 
 ::: {#respuesta-2 .callout-note}
 ```{r simula-normal}
-valores <- rnorm(3, mean = 0, sd = 1)
+valores <- rnorm(3)
 ```
 
 Aquí están los valores.
