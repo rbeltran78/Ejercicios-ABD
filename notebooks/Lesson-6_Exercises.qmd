@@ -318,7 +318,7 @@ A continuación vamos a hacer eso mismo con las distribuciones predictivas poste
 
 ::: {#respuesta-18 .callout-note}
 ```{r max-poisson}
-max_poisson <- function(lambda, n) { # TODO: No borrar prototipo!
+max_poisson <- function(lambda, n) {
   
   # COMPLETAR AQUÍ EL CUERPO DE LA FUNCIÓN
 }
