@@ -119,6 +119,13 @@ Tal y como la lectura indica, en esta distribución sería muy sencillo obtener 
 -   Dado un valor de $δ$, escibe a continuación una función que devuelva una única muestra aleatoria de $θ$ (i.e., una muestra de tamaño 1) de la distribución $p(θ|δ)$. Utiliza el prototipo de la función que se da a continuación, y los objetos globales definidos en el "chunk" de código anterior sin necesidad de definirlos de nuevo (`PROB_DELTA`, `MEDIAS`, `VAR`, o `sd`, según los necesites).
 
 ::: {#respuesta-1 .callout-note}
+```{r muestrear-theta}
+# Argumento `delta`: Valor entero de δ para muestrear $p(θ|δ)$
+muestrear_theta <- function(delta) {
+  
+  # COMPLETAR AQUÍ EL CUERPO DE LA FUNCIÓN
+}
+```
 :::
 
 ### Pregunta 2
@@ -126,6 +133,13 @@ Tal y como la lectura indica, en esta distribución sería muy sencillo obtener 
 -   Dado un valor de $θ$, escibe a continuación una función que devuelva una única muestra aleatoria de $δ$ (i.e., una muestra de tamaño 1) de la distribución $p(δ|θ)$, tal y como se indica en la ecuación de la p. 100 de @hoff2009a. Utiliza el prototipo de la función que se da a continuación, y los objetos globales definidos en el "chunk" de código anterior sin necesidad de definirlos de nuevo (`PROB_DELTA`, `MEDIAS`, `VAR`, o `sd`, según los necesites).
 
 ::: {#respuesta-2 .callout-note}
+```{r muestrear-delta}
+# Argumento `theta`: Valor real de θ para muestrear $p(δ|θ)$
+muestrear_delta <- function(theta) {
+  
+  # COMPLETAR AQUÍ EL CUERPO DE LA FUNCIÓN
+}
+```
 :::
 
 ## Muestreador de Gibbs
@@ -212,6 +226,16 @@ Solamente falta el estao inicial de la cadena.
 -   Consulta la ayuda de la función `gelman.diag()` del paquete `{coda}`. Después, completa el siguiente chunk para calcular el estadístico $R$ (diagnóstico de Gelman-Rubin) para los valores de $θ$ a partir de las dos cadena de Markov que acabas de generar e interprétalo.
 
 ::: {#respuesta-8 .callout-note}
+```{r calcular-diagnostico-GR}
+theta_Gibbs <- list(
+  theta_Gibbs_1 = cadena_Gibbs  |> pull(theta) |> as.mcmc(),
+  theta_Gibbs_2 = cadena_Gibbs2 |> pull(theta) |> as.mcmc()
+)
+
+# COMPLETAR AQUÍ EL CÓDIGO FALTANTE PARA CALCULAR $R$
+
+```
+
 :::
 
 ### Pregunta 9
@@ -224,6 +248,9 @@ Solamente falta el estao inicial de la cadena.
 ```{r muestrear-Gibbs-100000}
 #| cache: true # Guarda los resultados para no tener que ejecutar el "chunk"
                #   cada vez que se renderiza el notebook.
+
+# ESCRIBE A CONTINUACIÓN EL CÓDIGO PARA EJECUTAR EL MUESTREADOR DE GIBBS
+
 ```
 
 :::
