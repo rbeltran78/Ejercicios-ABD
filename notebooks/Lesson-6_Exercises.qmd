@@ -628,7 +628,7 @@ fertilidad_gss_1990 %>%
 #Valor maximo de numero de hijos que propone la distribucion predictiva posterior
 max(dpred_post_conh)
 
-#Conclusion: El modelo de distribucion predictiva posterior esta estimando un maximo mayor que el modelo empirico. Quizas hay una sobreestimacion de los valores.
+#Conclusion: El modelo de distribucion predictiva posterior esta estimando un maximo mayor que el modelo empirico. Quizas hay una sobreestimacion de los valores
 
 
 ```
